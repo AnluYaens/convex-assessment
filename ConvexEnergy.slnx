@@ -1,6 +1,7 @@
 <Solution>
   <Project Path="ConvexEnergy.Api/ConvexEnergy.Api.csproj" />
   <Project Path="ConvexEnergy.Shared/ConvexEnergy.Shared.csproj" />
+  <Project Path="ConvexEnergy.Tests/ConvexEnergy.Tests.csproj" />
   <Project Path="ConvexEnergy.Web/ConvexEnergy.Web.csproj" />
   <Project Path="ConvexEnergy.Worker/ConvexEnergy.Worker.csproj" />
 </Solution>
