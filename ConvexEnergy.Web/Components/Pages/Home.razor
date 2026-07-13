@@ -1,7 +1,81 @@
 ﻿@page "/"
+@rendermode InteractiveServer
+@inject DayAheadApiClient Api
 
-<PageTitle>Home</PageTitle>
+<PageTitle>OMIE Day-Ahead Prices</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>OMIE Day-Ahead Prices</h1>
+<p>Spanish and Portuguese day-ahead marginal prices in EUR/MWh, 15-minute periods, CET/CEST.</p>
 
-Welcome to your new app.
+<label>
+    Delivery date:
+    <input type="date" @bind="selectedDate" @bind:after="LoadAsync" />
+</label>
+
+@if (loading)
+{
+    <p><em>Loading...</em></p>
+}
+else if (error is not null)
+{
+    <p role="alert">@error</p>
+}
+else if (points.Count == 0)
+{
+    <p>No data stored for @selectedDate.ToString("yyyy-MM-dd"). Run the Worker to import it, or pick another day.</p>
+}
+else
+{
+    <p>
+        <strong>@points.Count periods.</strong>
+        ES min @Fmt(points.Min(p => p.PriceEsEurMwh)),
+        avg @Fmt(points.Average(p => p.PriceEsEurMwh)),
+        max @Fmt(points.Max(p => p.PriceEsEurMwh)) EUR/MWh.
+    </p>
+    <table class="table">
+        <thead>
+            <tr><th>Period</th><th>Start (CET/CEST)</th><th>ES (EUR/MWh)</th><th>PT (EUR/MWh)</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var p in points)
+            {
+                <tr>
+                    <td>@p.Period</td>
+                    <td>@p.StartCet.ToString("HH:mm")</td>
+                    <td>@Fmt(p.PriceEsEurMwh)</td>
+                    <td>@Fmt(p.PricePtEurMwh)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private DateOnly selectedDate = DateOnly.FromDateTime(DateTime.Today).AddDays(-1);
+    private List<DayAheadApiClient.DayAheadPoint> points = [];
+    private bool loading;
+    private string? error;
+
+    protected override Task OnInitializedAsync() => LoadAsync();
+
+    private async Task LoadAsync()
+    {
+        loading = true;
+        error = null;
+        try
+        {
+            points = await Api.GetDayAsync(selectedDate);
+        }
+        catch (Exception ex)
+        {
+            points = [];
+            error = $"Could not reach the API at its configured address: {ex.Message}";
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+
+    private static string Fmt(decimal v) => v.ToString("0.00");
+}
