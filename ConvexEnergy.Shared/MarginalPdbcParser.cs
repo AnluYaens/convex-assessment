@@ -26,8 +26,11 @@ public static class MarginalPdbcParser
                 throw new FormatException($"Unexpected marginalpdbc line: '{line}'");
 
             prices.Add(new AuctionPrice(
-                DeliveryDate: new DateOnly(int.Parse(parts[0]), int.Parse(parts[1]), int.Parse(parts[2])),
-                Period: int.Parse(parts[3]),
+                DeliveryDate: new DateOnly(
+                    int.Parse(parts[0], CultureInfo.InvariantCulture),
+                    int.Parse(parts[1], CultureInfo.InvariantCulture),
+                    int.Parse(parts[2], CultureInfo.InvariantCulture)),
+                Period: int.Parse(parts[3], CultureInfo.InvariantCulture),
                 PricePt: decimal.Parse(parts[4], CultureInfo.InvariantCulture),   // OMIE spec 6.18: MarginalPT
                 PriceEs: decimal.Parse(parts[5], CultureInfo.InvariantCulture))); // OMIE spec 6.18: MarginalES
         }

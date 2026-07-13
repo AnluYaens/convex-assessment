@@ -34,10 +34,10 @@ Blindly copied code that the candidate cannot explain results in a failed assess
 
 ## Deliverables checklist
 
-- [ ] Working Quartz.NET worker: periodic download, persistence, dedup, restart safety, logging
-- [ ] REST API: CET time series, application/json and text/plain (semicolon CSV)
-- [ ] Blazor Server frontend consuming ONLY the REST API
-- [ ] README with setup instructions and research summary
-- [ ] Complete unedited AI transcripts in docs/ai-transcripts/
-- [ ] Fresh-clone test: clone, follow README, everything runs
+- [x] Working Quartz.NET worker: periodic download, persistence, dedup, restart safety, logging
+- [x] REST API: CET time series, application/json and text/plain (semicolon CSV)
+- [x] Blazor Server frontend consuming ONLY the REST API
+- [x] README with setup instructions and research summary
+- [x] Complete unedited AI transcripts in docs/ai-transcripts/
+- [x] Fresh-clone test: clone, follow README, everything runs
 - [ ] Repo public, URL submitted

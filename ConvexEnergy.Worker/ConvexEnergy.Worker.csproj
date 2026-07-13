@@ -4,7 +4,6 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>dotnet-ConvexEnergy.Worker-a5fe3fb2-dc60-43ce-80c0-093c58bf3a0b</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

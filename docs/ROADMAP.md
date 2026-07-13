@@ -8,13 +8,13 @@ Time budget: roughly 10 focused hours. Statuses: DONE / IN PROGRESS / NEXT / TOD
 - Solution with 4 projects: Shared (classlib), Worker (Quartz host), Api (webapi), Web (Blazor Server)
 - Git repo with .NET .gitignore, docs/ai-transcripts and docs/samples folders
 
-## Phase 1: Research (DONE except one item)
+## Phase 1: Research (DONE)
 
 - OMIE identified as the exchange, marginalpdbc files as the data source
 - Real file downloaded and format confirmed against a live sample
 - 15-minute MTU change (2025-10-01) identified and reflected in the schema
 - File version suffix behavior (.1/.2/.3 corrections) identified
-- IN PROGRESS: confirm which price column is Spain vs Portugal from OMIE format doc page 67
+- DONE: confirm which price column is Spain vs Portugal from OMIE format doc page 67
 
 Definition of done: README research section can cite a source for every claim.
 
@@ -26,7 +26,7 @@ Definition of done: README research section can cite a source for every claim.
 - Parser MarginalPdbcParser with culture-invariant decimal parsing
 - Vulnerable transitive packages bumped (SQLitePCLRaw, Microsoft.OpenApi)
 
-## Phase 3: Worker (NEXT, ~2-3h)
+## Phase 3: Worker (DONE)
 
 - Quartz job: download latest available file(s), parse, upsert
 - Version-aware upsert: skip same-or-lower version, overwrite on higher version, log both
@@ -37,7 +37,7 @@ Definition of done: README research section can cite a source for every claim.
 
 Definition of done: run worker, see rows in SQLite; stop it, restart it, see zero duplicates and a log line explaining why nothing was re-imported.
 
-## Phase 4: REST API (~1.5-2h)
+## Phase 4: REST API (DONE)
 
 - GET endpoint returning stored data as CET time series (timestamps computed via Europe/Madrid, DST-safe)
 - Content negotiation: application/json and text/plain (semicolon-separated CSV)
@@ -46,7 +46,7 @@ Definition of done: run worker, see rows in SQLite; stop it, restart it, see zer
 
 Definition of done: curl with Accept: application/json and Accept: text/plain both return correct data for a real day.
 
-## Phase 5: Blazor frontend (~2h)
+## Phase 5: Blazor frontend (DONE)
 
 - One page: date picker, table of periods and prices
 - Data fetched via HttpClient from the REST API only, no DB access, no project reference to Shared
@@ -54,7 +54,7 @@ Definition of done: curl with Accept: application/json and Accept: text/plain bo
 
 Definition of done: browser shows real auction data that traveled through the API.
 
-## Phase 6: Polish and submission (~1.5h)
+## Phase 6: Polish and submission (DONE)
 
 - README: setup, architecture, research summary with sources, assumptions and limitations
 - Export ALL AI transcripts verbatim into docs/ai-transcripts/

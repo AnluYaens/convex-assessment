@@ -7,7 +7,7 @@ Built with AI assistance throughout, per the assignment. The complete, unedited 
 ## Architecture
 
 ```
-ConvexEnergy.sln
+ConvexEnergy.slnx
   ConvexEnergy.Shared    Domain model, EF Core DbContext, migrations, file parser
   ConvexEnergy.Worker    Quartz.NET host: downloads, parses, imports (owns the DB schema)
   ConvexEnergy.Tests     xunit tests for the file parser, run against a committed real sample file
@@ -109,6 +109,8 @@ The SQLite file is `data/convexenergy.db` at the repository root (`../data` rela
 - The API has no authentication and binds to localhost; it is a local demo, not a hardened service.
 - OMIE occasionally answers HTTP 200 with a non-file body for nonexistent files; the downloader validates content by the `MARGINALPDBC` header instead of trusting status codes.
 - Historical data is limited by OMIE's 6-year rolling window, and this system only backfills `BackfillDays` into the past by default (configurable).
+- Run the Worker at least once before the API; the API assumes the database and schema exist, since the Worker owns both.
+- Content negotiation is a deliberate substring check on the Accept header, sufficient for the two required content types; full q-value parsing was out of scope.
 
 ## Notable issues hit and resolved during the AI-assisted build
 
